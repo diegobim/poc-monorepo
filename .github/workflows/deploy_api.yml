@@ -1,6 +1,7 @@
 name: Deploy API
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -19,6 +20,9 @@ jobs:
 
       - name: Install node.js (latest version)
         uses: actions/setup-node@v2
+
+      - name: Setup
+        run: yarn install
 
       - name: Audit
         run: yarn audit
@@ -43,8 +47,11 @@ jobs:
       - name: Install node.js (latest version)
         uses: actions/setup-node@v2
 
+      - name: Setup
+        run: yarn install
+
       - name: Build
-        run: yarn build
+        run: yarn workspaces run build
 
   deploy:
     name: Deploy
